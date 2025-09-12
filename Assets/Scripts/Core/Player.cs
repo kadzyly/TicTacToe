@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TicTacToe.Core 
+namespace Core 
 {
     public enum Player
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace TicTacToe.Core
+namespace Core
 {
     public static class WinnerChecker
     {
