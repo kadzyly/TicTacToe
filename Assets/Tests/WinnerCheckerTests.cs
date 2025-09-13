@@ -9,79 +9,79 @@ namespace Tests
         [Test]
         public void EmptyBoard_HasNoWinner()
         {
-            var cells = new Player[3, 3];
+            var cells = new PlayerSymbol[3, 3];
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.None, winner);
+            Assert.AreEqual(PlayerSymbol.None, winner);
         }
         
         [Test]
         public void RowWin_XWinsInFirstRow()
         {
-            var cells = new Player[3, 3]
+            var cells = new PlayerSymbol[3, 3]
             {
-                { Player.X, Player.X, Player.X },
-                { Player.None, Player.None, Player.None },
-                { Player.None, Player.None, Player.None }
+                { PlayerSymbol.X, PlayerSymbol.X, PlayerSymbol.X },
+                { PlayerSymbol.None, PlayerSymbol.None, PlayerSymbol.None },
+                { PlayerSymbol.None, PlayerSymbol.None, PlayerSymbol.None }
             };
 
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.X, winner);
+            Assert.AreEqual(PlayerSymbol.X, winner);
         }
 
         [Test]
         public void ColumnWin_OWinsInSecondColumn()
         {
-            var cells = new Player[3, 3]
+            var cells = new PlayerSymbol[3, 3]
             {
-                { Player.None, Player.O, Player.None },
-                { Player.None, Player.O, Player.None },
-                { Player.None, Player.O, Player.None }
+                { PlayerSymbol.None, PlayerSymbol.O, PlayerSymbol.None },
+                { PlayerSymbol.None, PlayerSymbol.O, PlayerSymbol.None },
+                { PlayerSymbol.None, PlayerSymbol.O, PlayerSymbol.None }
             };
 
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.O, winner);
+            Assert.AreEqual(PlayerSymbol.O, winner);
         }
 
         [Test]
         public void DiagonalWin_XWinsOnMainDiagonal()
         {
-            var cells = new Player[3, 3]
+            var cells = new PlayerSymbol[3, 3]
             {
-                { Player.X, Player.None, Player.None },
-                { Player.None, Player.X, Player.None },
-                { Player.None, Player.None, Player.X }
+                { PlayerSymbol.X, PlayerSymbol.None, PlayerSymbol.None },
+                { PlayerSymbol.None, PlayerSymbol.X, PlayerSymbol.None },
+                { PlayerSymbol.None, PlayerSymbol.None, PlayerSymbol.X }
             };
 
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.X, winner);
+            Assert.AreEqual(PlayerSymbol.X, winner);
         }
 
         [Test]
         public void AntiDiagonalWin_OWinsOnOtherDiagonal()
         {
-            var cells = new Player[3, 3]
+            var cells = new PlayerSymbol[3, 3]
             {
-                { Player.None, Player.None, Player.O },
-                { Player.None, Player.O, Player.None },
-                { Player.O, Player.None, Player.None }
+                { PlayerSymbol.None, PlayerSymbol.None, PlayerSymbol.O },
+                { PlayerSymbol.None, PlayerSymbol.O, PlayerSymbol.None },
+                { PlayerSymbol.O, PlayerSymbol.None, PlayerSymbol.None }
             };
 
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.O, winner);
+            Assert.AreEqual(PlayerSymbol.O, winner);
         }
 
         [Test]
         public void NoWinner_FullBoardDraw()
         {
-            var cells = new Player[3, 3]
+            var cells = new PlayerSymbol[3, 3]
             {
-                { Player.X, Player.O, Player.X },
-                { Player.O, Player.X, Player.O },
-                { Player.O, Player.X, Player.O }
+                { PlayerSymbol.X, PlayerSymbol.O, PlayerSymbol.X },
+                { PlayerSymbol.O, PlayerSymbol.X, PlayerSymbol.O },
+                { PlayerSymbol.O, PlayerSymbol.X, PlayerSymbol.O }
             };
 
             var winner = WinnerChecker.GetWinner(cells);
-            Assert.AreEqual(Player.None, winner);
+            Assert.AreEqual(PlayerSymbol.None, winner);
         }
     }
 }

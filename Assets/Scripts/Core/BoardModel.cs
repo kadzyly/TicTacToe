@@ -4,18 +4,18 @@ namespace Core
 {
     public class BoardModel
     {
-        private readonly Player[,] _cells;
+        private readonly PlayerSymbol[,] _cells;
         public int Size { get; }
         
         
         public BoardModel(int size = 3)
         {
             Size = size;
-            _cells = new Player[Size, Size];
+            _cells = new PlayerSymbol[Size, Size];
             Reset();
         }
         
-        public Player GetWinner()
+        public PlayerSymbol GetWinner()
         {
             return WinnerChecker.GetWinner(_cells);
         }
@@ -26,33 +26,33 @@ namespace Core
             {
                 for (int col = 0; col < Size; col++)
                 {
-                    _cells[row, col] = Player.None;
+                    _cells[row, col] = PlayerSymbol.None;
                 }
             }
         }
         
-        public Player GetAt(int row, int column)
+        public PlayerSymbol GetAt(int row, int column)
         {
             ValidateCoordinates(row, column);
             
             return _cells[row, column];
         }
 
-        public bool TryMakeMove(int row, int column, Player player)
+        public bool TryMakeMove(int row, int column, PlayerSymbol playerSymbol)
         {
             ValidateCoordinates(row, column);
 
-            if (player == Player.None)
+            if (playerSymbol == PlayerSymbol.None)
             {
-                throw new ArgumentOutOfRangeException(nameof(player), "Player cannot be None");
+                throw new ArgumentOutOfRangeException(nameof(playerSymbol), "PlayerSymbol cannot be None");
             }
 
-            if (_cells[row, column] != Player.None)
+            if (_cells[row, column] != PlayerSymbol.None)
             {
                 return false;
             }
             
-            _cells[row, column] = player;
+            _cells[row, column] = playerSymbol;
             return true;
         }
         
@@ -62,7 +62,7 @@ namespace Core
             {
                 for (int col = 0; col < Size; col++)
                 {
-                    if (_cells[row, col] == Player.None)
+                    if (_cells[row, col] == PlayerSymbol.None)
                     {
                         return false;
                     }
@@ -74,12 +74,12 @@ namespace Core
 
         public bool IsDraw()
         {
-            return IsFull() && GetWinner() == Player.None;
+            return IsFull() && GetWinner() == PlayerSymbol.None;
         }
         
-        public Player[,] GetCopy()
+        public PlayerSymbol[,] GetCopy()
         {
-            var copy = new Player[Size, Size];
+            var copy = new PlayerSymbol[Size, Size];
             
             for (int row = 0; row < Size; row++)
             {
@@ -114,7 +114,7 @@ namespace Core
             {
                 var cols = new string[Size];
                 for (int c = 0; c < Size; c++)
-                    cols[c] = _cells[r,c] == Player.None ? "." : _cells[r,c].ToString();
+                    cols[c] = _cells[r,c] == PlayerSymbol.None ? "." : _cells[r,c].ToString();
                 lines[r] = string.Join(" ", cols);
             }
             

@@ -4,7 +4,7 @@ namespace Core
 {
     public static class WinnerChecker
     {
-        public static Player GetWinner(Player[,] cells)
+        public static PlayerSymbol GetWinner(PlayerSymbol[,] cells)
         {
             int size = cells.GetLength(0);
 
@@ -12,7 +12,7 @@ namespace Core
             for (int row = 0; row < size; row++)
             {
                 var candidate = cells[row, 0];
-                if (candidate == Player.None) continue;
+                if (candidate == PlayerSymbol.None) continue;
 
                 bool rowWin = true;
                 for (int col = 1; col < size; col++)
@@ -30,7 +30,7 @@ namespace Core
             for (int col = 0; col < size; col++)
             {
                 var candidate = cells[0, col];
-                if (candidate == Player.None) continue;
+                if (candidate == PlayerSymbol.None) continue;
 
                 bool colWin = true;
                 for (int row = 1; row < size; row++)
@@ -47,7 +47,7 @@ namespace Core
             // diagonals
             {
                 var candidate = cells[0, 0];
-                if (candidate != Player.None)
+                if (candidate != PlayerSymbol.None)
                 {
                     bool diagWin = true;
                     for (int i = 1; i < size; i++)
@@ -65,7 +65,7 @@ namespace Core
             // diagonals
             {
                 var candidate = cells[0, size - 1];
-                if (candidate != Player.None)
+                if (candidate != PlayerSymbol.None)
                 {
                     bool diagWin = true;
                     for (int i = 1; i < size; i++)
@@ -80,7 +80,7 @@ namespace Core
                 }
             }
 
-            return Player.None;
+            return PlayerSymbol.None;
         }
     }
 }

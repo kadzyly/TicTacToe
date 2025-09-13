@@ -14,7 +14,7 @@ namespace Tests
             {
                 for (int c = 0; c < board.Size; c++)
                 {
-                    Assert.AreEqual(Player.None, board.GetAt(r, c));
+                    Assert.AreEqual(PlayerSymbol.None, board.GetAt(r, c));
                 }
             }
         }
@@ -23,22 +23,22 @@ namespace Tests
         public void TryMakeMove_ValidMove_SetsPlayer()
         {
             var board = new BoardModel();
-            bool result = board.TryMakeMove(0, 0, Player.X);
+            bool result = board.TryMakeMove(0, 0, PlayerSymbol.X);
 
             Assert.IsTrue(result);
-            Assert.AreEqual(Player.X, board.GetAt(0, 0));
+            Assert.AreEqual(PlayerSymbol.X, board.GetAt(0, 0));
         }
 
         [Test]
         public void TryMakeMove_OccupiedCell_ReturnsFalse()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 0, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
 
-            bool result = board.TryMakeMove(0, 0, Player.O);
+            bool result = board.TryMakeMove(0, 0, PlayerSymbol.O);
 
             Assert.IsFalse(result);
-            Assert.AreEqual(Player.X, board.GetAt(0, 0)); // значение не изменилось
+            Assert.AreEqual(PlayerSymbol.X, board.GetAt(0, 0)); // значение не изменилось
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Tests
 
             Assert.Throws<System.ArgumentOutOfRangeException>(() =>
             {
-                board.TryMakeMove(0, 0, Player.None);
+                board.TryMakeMove(0, 0, PlayerSymbol.None);
             });
         }
 
@@ -56,40 +56,40 @@ namespace Tests
         public void GetWinner_RowWin_XWins()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 0, Player.X);
-            board.TryMakeMove(0, 1, Player.X);
-            board.TryMakeMove(0, 2, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
+            board.TryMakeMove(0, 1, PlayerSymbol.X);
+            board.TryMakeMove(0, 2, PlayerSymbol.X);
 
-            Assert.AreEqual(Player.X, board.GetWinner());
+            Assert.AreEqual(PlayerSymbol.X, board.GetWinner());
         }
 
         [Test]
         public void GetWinner_ColumnWin_OWins()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 1, Player.O);
-            board.TryMakeMove(1, 1, Player.O);
-            board.TryMakeMove(2, 1, Player.O);
+            board.TryMakeMove(0, 1, PlayerSymbol.O);
+            board.TryMakeMove(1, 1, PlayerSymbol.O);
+            board.TryMakeMove(2, 1, PlayerSymbol.O);
 
-            Assert.AreEqual(Player.O, board.GetWinner());
+            Assert.AreEqual(PlayerSymbol.O, board.GetWinner());
         }
 
         [Test]
         public void GetWinner_DiagonalWin_XWins()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 0, Player.X);
-            board.TryMakeMove(1, 1, Player.X);
-            board.TryMakeMove(2, 2, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
+            board.TryMakeMove(1, 1, PlayerSymbol.X);
+            board.TryMakeMove(2, 2, PlayerSymbol.X);
 
-            Assert.AreEqual(Player.X, board.GetWinner());
+            Assert.AreEqual(PlayerSymbol.X, board.GetWinner());
         }
 
         [Test]
         public void IsFull_WhenNotFull_ReturnsFalse()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 0, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
 
             Assert.IsFalse(board.IsFull());
         }
@@ -102,7 +102,7 @@ namespace Tests
             {
                 for (int c = 0; c < board.Size; c++)
                 {
-                    board.TryMakeMove(r, c, Player.X);
+                    board.TryMakeMove(r, c, PlayerSymbol.X);
                 }
             }
 
@@ -115,17 +115,17 @@ namespace Tests
             var board = new BoardModel();
 
             // патовая ситуация 3x3
-            board.TryMakeMove(0, 0, Player.X);
-            board.TryMakeMove(0, 1, Player.O);
-            board.TryMakeMove(0, 2, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
+            board.TryMakeMove(0, 1, PlayerSymbol.O);
+            board.TryMakeMove(0, 2, PlayerSymbol.X);
 
-            board.TryMakeMove(1, 0, Player.X);
-            board.TryMakeMove(1, 1, Player.O);
-            board.TryMakeMove(1, 2, Player.O);
+            board.TryMakeMove(1, 0, PlayerSymbol.X);
+            board.TryMakeMove(1, 1, PlayerSymbol.O);
+            board.TryMakeMove(1, 2, PlayerSymbol.O);
 
-            board.TryMakeMove(2, 0, Player.O);
-            board.TryMakeMove(2, 1, Player.X);
-            board.TryMakeMove(2, 2, Player.X);
+            board.TryMakeMove(2, 0, PlayerSymbol.O);
+            board.TryMakeMove(2, 1, PlayerSymbol.X);
+            board.TryMakeMove(2, 2, PlayerSymbol.X);
 
             Assert.IsTrue(board.IsDraw());
         }
@@ -134,7 +134,7 @@ namespace Tests
         public void Reset_ClearsBoard()
         {
             var board = new BoardModel();
-            board.TryMakeMove(0, 0, Player.X);
+            board.TryMakeMove(0, 0, PlayerSymbol.X);
 
             board.Reset();
 
@@ -142,7 +142,7 @@ namespace Tests
             {
                 for (int c = 0; c < board.Size; c++)
                 {
-                    Assert.AreEqual(Player.None, board.GetAt(r, c));
+                    Assert.AreEqual(PlayerSymbol.None, board.GetAt(r, c));
                 }
             }
         }

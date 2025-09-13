@@ -1,7 +1,7 @@
 
 namespace Core 
 {
-    public enum Player
+    public enum PlayerSymbol
     {
         None = 0, // empty cell
         X = 1, // cell with X
