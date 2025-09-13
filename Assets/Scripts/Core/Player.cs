@@ -1,11 +1,10 @@
-using UnityEngine;
 
 namespace Core 
 {
     public enum Player
     {
-        None = 0,
-        X = 1,
-        O = 2
+        None = 0, // empty cell
+        X = 1, // cell with X
+        O = 2 // cell with O
     }
 }
