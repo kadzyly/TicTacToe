@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UICellBehaviour : MonoBehaviour
 {
-    [SerializeField] private Cell cell; 
+    [SerializeField] private CellData cellData; 
     [SerializeField] private Button button;
     [SerializeField] private Image image;
     [SerializeField] private Color defaultColor;
@@ -29,19 +29,19 @@ public class UICellBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        cell.OnValueChanged += OnValueChanged;
-        cell.OnGameFinished += OnGameFinished;
+        cellData.OnValueChanged += OnValueChanged;
+        cellData.OnGameFinished += OnGameFinished;
     }
 
     private void OnDisable()
     {
-        cell.OnValueChanged -= OnValueChanged;
-        cell.OnGameFinished -= OnGameFinished;
+        cellData.OnValueChanged -= OnValueChanged;
+        cellData.OnGameFinished -= OnGameFinished;
     }
 
-    private void OnValueChanged(int _, int newValue)
+    private void OnValueChanged(int _, Constants.CellValue newValue)
     {
-        image.sprite = newValue == 1 ? xImage : oImage;
+        image.sprite = newValue == Constants.CellValue.Cross ? xImage : oImage;
 
         if (newValue != 0) return; // game restart
         image.sprite = blankImage;
@@ -55,13 +55,13 @@ public class UICellBehaviour : MonoBehaviour
 
     private void OnButtonClick()
     {
-        if (!cell.IsInteractive) return;
-        if (cell.Value != 0) return;
+        if (!cellData.IsInteractive) return;
+        if (cellData.Value != 0) return;
         
-        bool isXTurn = TurnManager.Instance.xUserTurn;
+        bool isXTurn = TurnManager.Instance.crossUserTurn;
         
-        int newValue = isXTurn ? 1 : 2;
-        cell.SetValue(newValue);
+        Constants.CellValue newValue = isXTurn ? Constants.CellValue.Cross : Constants.CellValue.Circle;
+        cellData.SetValue(newValue);
         
         TurnManager.Instance.ChangeTurn();
     }

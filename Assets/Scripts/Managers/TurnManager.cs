@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -8,7 +9,7 @@ namespace Managers
         public static TurnManager Instance;
         public static event Action<bool> OnTurnChanged;
         
-        public bool xUserTurn = true;
+        public bool crossUserTurn = true;
 
         private void Awake()
         {
@@ -18,8 +19,8 @@ namespace Managers
 
         public void ChangeTurn()
         {
-            bool newValue = !xUserTurn;
-            xUserTurn = newValue;
+            bool newValue = !crossUserTurn;
+            crossUserTurn = newValue;
             OnTurnChanged?.Invoke(newValue);
         }
     }
