@@ -4,9 +4,9 @@ using UnityEngine.Serialization;
 
 namespace Managers
 {
-    public class TurnManager : MonoBehaviour
+    public class PlayerTurnManager : MonoBehaviour
     {
-        public static TurnManager Instance;
+        public static PlayerTurnManager Instance;
         public static event Action<bool> OnTurnChanged;
         
         public bool crossUserTurn = true;

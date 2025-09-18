@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5668462236173401787}
   - component: {fileID: 7230740728803310402}
   m_Layer: 5
-  m_Name: Cell Button
+  m_Name: CellPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 8995154407686431259, guid: c5cfabf854b8e4447b00d202b14942ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c412d0fb98885354b9822a81516df984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 0}
   button: {fileID: 5668462236173401787}
   image: {fileID: 8509866092972355528}
   defaultColor: {r: 0.33333334, g: 0.7254902, b: 0.9254902, a: 0}
