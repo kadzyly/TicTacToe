@@ -136,9 +136,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 5668462236173401787}
   image: {fileID: 8509866092972355528}
-  defaultColor: {r: 0.33333334, g: 0.7254902, b: 0.9254902, a: 0}
-  winColor: {r: 0.2778568, g: 0.8415094, b: 0.41950637, a: 0}
-  failedColor: {r: 0.8113208, g: 0.20053399, b: 0.20053399, a: 0}
+  defaultColor: {r: 0.33333334, g: 0.7254902, b: 0.9254902, a: 1}
+  winColor: {r: 0.2778568, g: 0.8415094, b: 0.41950637, a: 1}
+  failedColor: {r: 0.2972232, g: 0.36488718, b: 0.4339623, a: 1}
 --- !u!114 &779489505482298937
 MonoBehaviour:
   m_ObjectHideFlags: 0

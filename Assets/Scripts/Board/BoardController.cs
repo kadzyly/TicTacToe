@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using UnityEngine;
 
@@ -45,6 +46,25 @@ namespace Board
             _model.MakeMove(model, newValue);
 
             PlayerTurnManager.Instance.SetTurn(!PlayerTurnManager.Instance.CrossUserTurn);
+
+            List<int> winIndexed = WinChecker.GetWinningLine(_model.Cells, model.Id, newValue);
+            
+            if (winIndexed != null)
+            {
+                foreach (var index in winIndexed)
+                {
+                    _model.Cells[index].SetStatus(Constants.CellWinStatus.Win);
+                }
+            }
+            // no winners
+            else if (_model.Cells.All(c => c.Value != Constants.CellValue.Empty))
+            {
+                foreach (var cell in _model.Cells)
+                {
+                    cell.SetStatus(Constants.CellWinStatus.Lose);
+                }
+            }
+ 
         }
 
         public void ResetGame()

@@ -40,17 +40,26 @@ namespace Cell
         public void DisplayEmpty()
         {
             image.sprite = blankImage;
-            image.color = defaultColor;
         }
 
         public void DisplayWinColor()
         {
-            image.color = winColor;
+            ChangeImageColor(winColor);
         }
         
         public void DisplayFailColor()
         {
-            image.color = failedColor;
+            ChangeImageColor(failedColor);
+        }
+        public void DisplayDefaultColor()
+        {
+            ChangeImageColor(defaultColor);
+        }
+
+        private void ChangeImageColor(Color color)
+        {
+            Color current = image.color;
+            image.color = new Color(color.r, color.g, color.b, current.a);
         }
 
         private void OnButtonClick()

@@ -23,7 +23,7 @@ namespace Cell
             _model = cellModel;
 
             _model.OnValueChanged += OnValueChanged;
-            _model.OnGameFinished += OnGameFinished;
+            _model.OnStatusChanged += OnStatusChanged;
         }
         
         private void OnDestroy()
@@ -31,7 +31,7 @@ namespace Cell
             if (_model != null)
             {
                 _model.OnValueChanged -= OnValueChanged;
-                _model.OnGameFinished -= OnGameFinished;
+                _model.OnStatusChanged -= OnStatusChanged;
             }
 
             if (_view != null)
@@ -57,20 +57,20 @@ namespace Cell
             }
         }
 
-        public void ChangeValue(Constants.CellValue value)
+        private void OnStatusChanged(int _, Constants.CellWinStatus winStatus)
         {
-            _model.SetValue(value);
-        }
-        
-        private void OnGameFinished(bool isGameWin)
-        {
-            if (isGameWin)
+            switch (winStatus)
             {
-                _view.DisplayWinColor();
-            }
-            else
-            {
-                _view.DisplayFailColor();
+                case Constants.CellWinStatus.Win:
+                    _view.DisplayWinColor();
+                    break;
+                case Constants.CellWinStatus.Lose:
+                    _view.DisplayFailColor();
+                    break;
+                case Constants.CellWinStatus.None:
+                default:
+                    _view.DisplayDefaultColor();
+                    break;
             }
         }
 
