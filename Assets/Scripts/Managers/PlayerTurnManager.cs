@@ -18,11 +18,10 @@ namespace Managers
         }
 
 
-        public void ChangeTurn()
+        public void SetTurn(bool crossTurn)
         {
-            bool newValue = !_crossUserTurn;
-            _crossUserTurn = newValue;
-            OnTurnChanged?.Invoke(newValue);
+            _crossUserTurn = crossTurn;
+            OnTurnChanged?.Invoke(crossTurn);
         }
     }
 }

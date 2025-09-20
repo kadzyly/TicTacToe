@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Cell;
 using Managers;
 using UnityEngine;
 
@@ -46,7 +44,7 @@ namespace Board
 
             _model.MakeMove(model, newValue);
 
-            PlayerTurnManager.Instance.ChangeTurn();
+            PlayerTurnManager.Instance.SetTurn(!PlayerTurnManager.Instance.CrossUserTurn);
         }
 
         public void ResetGame()
