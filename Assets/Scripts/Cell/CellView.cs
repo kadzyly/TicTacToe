@@ -1,5 +1,4 @@
 using System;
-using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,8 @@ namespace Cell
         [SerializeField] private Color winColor;
         [SerializeField] private Color failedColor;
         private Sprite xImage, oImage, blankImage;
-
-        private CellModel model;
+        
+        public event Action OnButtonClicked;
 
         private void Awake()
         {
@@ -23,55 +22,39 @@ namespace Cell
             blankImage = Resources.Load<Sprite>("Empty");
         }
 
-        public void Init(CellModel cellModel)
+        private void Start()
         {
-            model = cellModel;
-
-            model.OnValueChanged += OnValueChanged;
-            model.OnGameFinished += OnGameFinished;
-
             button.onClick.AddListener(OnButtonClick);
         }
 
-        private void OnDestroy()
+        public void DisplayCross()
         {
-            if (model != null)
-            {
-                model.OnValueChanged -= OnValueChanged;
-                model.OnGameFinished -= OnGameFinished;
-            }
+            image.sprite = xImage;
+        }
+        
+        public void DisplayCircle()
+        {
+            image.sprite = oImage;
+        }
+        
+        public void DisplayEmpty()
+        {
+            image.sprite = blankImage;
         }
 
-        private void OnValueChanged(int _, Constants.CellValue newValue)
+        public void DisplayWinColor()
         {
-            switch (newValue)
-            {
-                case Constants.CellValue.Cross:
-                    image.sprite = xImage; break;
-                case Constants.CellValue.Circle:
-                    image.sprite = oImage; break;
-                default:
-                    image.color = defaultColor;
-                    image.sprite = blankImage;
-                    break;
-            }
+            image.color = winColor;
         }
-
-        private void OnGameFinished(bool isGameWin)
+        
+        public void DisplayFailColor()
         {
-            image.color = isGameWin ? winColor : failedColor;
+            image.color = failedColor;
         }
 
         private void OnButtonClick()
         {
-            if (!model.IsInteractive) return;
-
-            var newValue = PlayerTurnManager.Instance.crossUserTurn
-                ? Constants.CellValue.Cross
-                : Constants.CellValue.Circle;
-
-            model.SetValue(newValue);
-            PlayerTurnManager.Instance.ChangeTurn();
+            OnButtonClicked?.Invoke();
         }
     }
 }

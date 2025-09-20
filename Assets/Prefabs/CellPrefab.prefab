@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8509866092972355528}
   - component: {fileID: 5668462236173401787}
   - component: {fileID: 7230740728803310402}
+  - component: {fileID: 779489505482298937}
   m_Layer: 5
   m_Name: CellPrefab
   m_TagString: Untagged
@@ -138,3 +139,15 @@ MonoBehaviour:
   defaultColor: {r: 0.33333334, g: 0.7254902, b: 0.9254902, a: 0}
   winColor: {r: 0.2778568, g: 0.8415094, b: 0.41950637, a: 0}
   failedColor: {r: 0.8113208, g: 0.20053399, b: 0.20053399, a: 0}
+--- !u!114 &779489505482298937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662414784282291057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6fb60864239d14d8dba9477c77ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
