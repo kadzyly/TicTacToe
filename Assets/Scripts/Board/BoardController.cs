@@ -20,6 +20,11 @@ namespace Board
 
         private void Start()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             _model = new BoardModel(boardSize);
             _controllers = _builder.CreateBoard(_model.Cells);
 
@@ -45,29 +50,41 @@ namespace Board
 
             _model.MakeMove(model, newValue);
 
-            PlayerTurnManager.Instance.SetTurn(!PlayerTurnManager.Instance.CrossUserTurn);
+            CheckWin(_model.Cells, model.Id, newValue);
+        }
 
-            List<int> winIndexed = WinChecker.GetWinningLine(_model.Cells, model.Id, newValue);
+        private void CheckWin(List<Cell.CellModel> cells, int id, Constants.CellValue value)
+        {
+            List<int> winIndexed = WinChecker.GetWinningLine(cells, id, value);
             
+            // winner
             if (winIndexed != null)
             {
                 foreach (var index in winIndexed)
                 {
                     _model.Cells[index].SetStatus(Constants.CellWinStatus.Win);
                 }
+
+                GameManager.Instance.GameOver();
             }
-            // no winners
+            // end without winners
             else if (_model.Cells.All(c => c.Value != Constants.CellValue.Empty))
             {
                 foreach (var cell in _model.Cells)
                 {
                     cell.SetStatus(Constants.CellWinStatus.Lose);
                 }
+                
+                GameManager.Instance.GameOver();
             }
- 
+            // continue game
+            else
+            {
+                PlayerTurnManager.Instance.SetTurn(!PlayerTurnManager.Instance.CrossUserTurn);
+            }
         }
 
-        public void ResetGame()
+        public void ResetBoard()
         {
             _model.Reset();
         }

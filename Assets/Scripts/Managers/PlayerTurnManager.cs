@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -23,6 +22,11 @@ namespace Managers
         {
             _crossUserTurn = crossTurn;
             OnTurnChanged?.Invoke(crossTurn);
+        }
+
+        public void Reset()
+        {
+            SetTurn(true);
         }
     }
 }
