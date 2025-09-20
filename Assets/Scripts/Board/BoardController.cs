@@ -8,58 +8,50 @@ namespace Board
 {
     public class BoardController : MonoBehaviour
     {
-        public List<Cell.CellModel> Cells { get; private set; }
-        private int _boardSize = 3;
-        
-        public event Action OnReset;
-        private BoardBuilder _boardBuilder;
-        
+        [SerializeField] private int boardSize = 3;
+
+        private BoardModel _model;
+        private BoardBuilder _builder;
+        private List<Cell.CellController> _controllers;
+
         private void Awake()
         {
-            _boardBuilder = GetComponent<BoardBuilder>();
+            _builder = GetComponent<BoardBuilder>();
         }
 
         private void Start()
         {
-            ResetGame();
-            BuildBoard(_boardSize);
-        }
-        
-        private void BuildBoard(int size)
-        {
-            UnsubscribeFromCells();
+            _model = new BoardModel(boardSize);
+            _controllers = _builder.CreateBoard(_model.Cells);
 
-            Cells = _boardBuilder.CreateBoard(size);
-
-            foreach (var cell in _boardBuilder.CellControllers)
+            foreach (var controller in _controllers)
             {
-                cell.OnCellClicked += HandleCellClicked;
+                controller.OnCellClicked += HandleCellClicked;
             }
         }
-        
-        private void UnsubscribeFromCells()
+
+        private void OnDestroy()
         {
-            if (_boardBuilder == null) return;
-            foreach (var c in _boardBuilder.CellControllers)
+            foreach (var controller in _controllers)
             {
-                c.OnCellClicked -= HandleCellClicked;
+                controller.OnCellClicked -= HandleCellClicked;
             }
         }
-        
+
         private void HandleCellClicked(Cell.CellModel model)
         {
-            var newValue = PlayerTurnManager.Instance.crossUserTurn
+            var newValue = PlayerTurnManager.Instance.CrossUserTurn
                 ? Constants.CellValue.Cross
                 : Constants.CellValue.Circle;
 
-            model.SetValue(newValue);
+            _model.MakeMove(model, newValue);
+
             PlayerTurnManager.Instance.ChangeTurn();
         }
-         
-        
+
         public void ResetGame()
         {
-            OnReset?.Invoke();
+            _model.Reset();
         }
     }
 }

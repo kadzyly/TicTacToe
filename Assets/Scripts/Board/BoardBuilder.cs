@@ -9,40 +9,30 @@ namespace Board
     {
         [SerializeField] private Transform cellWrapper;
         [SerializeField] private GameObject cellPrefab;
-        
-        public List<Cell.CellController> CellControllers { get; private set; } = new();
 
-        public List<Cell.CellModel> CreateBoard(int columnCount)
+        public List<Cell.CellController> CreateBoard(List<Cell.CellModel> models)
         {
             ClearBoard();
-            
-            var cells = new List<Cell.CellModel>();
-            int cellCount = columnCount * columnCount;
 
-            for (int i = 0; i < cellCount; i++)
+            var controllers = new List<Cell.CellController>();
+
+            foreach (var model in models)
             {
-                var model = new Cell.CellModel(i);
-                cells.Add(model);
-
-                var newCell = Instantiate(cellPrefab, cellWrapper);
+                var newCell = Instantiate(cellPrefab, cellWrapper, false);
                 var uiCell = newCell.GetComponent<Cell.CellController>();
                 uiCell.Init(model);
-                
-                CellControllers.Add(uiCell);
+                controllers.Add(uiCell);
             }
 
-            return cells;
+            return controllers;
         }
-        
+
         private void ClearBoard()
         {
             for (int i = cellWrapper.childCount - 1; i >= 0; i--)
             {
-                var child = cellWrapper.GetChild(i).gameObject;
-                Destroy(child);
+                Destroy(cellWrapper.GetChild(i).gameObject);
             }
-        
-            CellControllers.Clear();
         }
     }
 }

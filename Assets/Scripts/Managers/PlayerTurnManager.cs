@@ -9,7 +9,8 @@ namespace Managers
         public static PlayerTurnManager Instance;
         public static event Action<bool> OnTurnChanged;
         
-        public bool crossUserTurn = true;
+        private bool _crossUserTurn = true;
+        public bool CrossUserTurn => _crossUserTurn;
 
         private void Awake()
         {
@@ -19,8 +20,8 @@ namespace Managers
 
         public void ChangeTurn()
         {
-            bool newValue = !crossUserTurn;
-            crossUserTurn = newValue;
+            bool newValue = !_crossUserTurn;
+            _crossUserTurn = newValue;
             OnTurnChanged?.Invoke(newValue);
         }
     }

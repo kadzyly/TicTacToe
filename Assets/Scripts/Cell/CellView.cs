@@ -40,6 +40,7 @@ namespace Cell
         public void DisplayEmpty()
         {
             image.sprite = blankImage;
+            image.color = defaultColor;
         }
 
         public void DisplayWinColor()

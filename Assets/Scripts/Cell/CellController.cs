@@ -56,6 +56,11 @@ namespace Cell
                     break;
             }
         }
+
+        public void ChangeValue(Constants.CellValue value)
+        {
+            _model.SetValue(value);
+        }
         
         private void OnGameFinished(bool isGameWin)
         {
@@ -73,13 +78,6 @@ namespace Cell
         {
             if (!_model.IsInteractive) return;
             OnCellClicked?.Invoke(_model);
-
-            // var newValue = PlayerTurnManager.Instance.crossUserTurn
-            //     ? Constants.CellValue.Cross
-            //     : Constants.CellValue.Circle;
-            //
-            // _model.SetValue(newValue);
-            // PlayerTurnManager.Instance.ChangeTurn();
         }
     }
 }

@@ -20,8 +20,8 @@ namespace Cell
 
         public void SetValue(Constants.CellValue value)
         {
-            if (!IsInteractive || Value != Constants.CellValue.Empty) return;
             Value = value;
+            IsInteractive = value == Constants.CellValue.Empty;
             OnValueChanged?.Invoke(Id, Value);
         }
 
