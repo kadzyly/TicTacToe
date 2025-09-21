@@ -32,8 +32,7 @@ namespace Managers
             PlayerTurnManager.Instance.Reset();
             _boardController.ResetBoard();
             _boardController.Init();
-            
-            _gameStatus = GameStatus.InGame;
+            SetGameMode(GameStatus.InGame);
         }
     }
 }

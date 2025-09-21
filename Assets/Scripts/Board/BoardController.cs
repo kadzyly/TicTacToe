@@ -45,16 +45,21 @@ namespace Board
 
         private void HandleCellClicked(Cell.CellModel model)
         {
+            if (GameManager.Instance.GameStatus != GameStatus.InGame)
+            {
+                return;
+            }
+            
             var newValue = PlayerTurnManager.Instance.CrossUserTurn
-                ? Constants.CellValue.Cross
-                : Constants.CellValue.Circle;
+                ? CellValue.Cross
+                : CellValue.Circle;
 
             _model.MakeMove(model, newValue);
 
             CheckWin(_model.Cells, model.Id, newValue);
         }
 
-        private void CheckWin(List<Cell.CellModel> cells, int id, Constants.CellValue value)
+        private void CheckWin(List<Cell.CellModel> cells, int id, CellValue value)
         {
             List<int> winIndexed = WinChecker.GetWinningLine(cells, id, value);
             
@@ -63,18 +68,18 @@ namespace Board
             {
                 foreach (var index in winIndexed)
                 {
-                    _model.Cells[index].SetStatus(Constants.CellWinStatus.Win);
+                    _model.Cells[index].SetStatus(CellWinStatus.Win);
                 }
 
                 bool isWin = PlayerTurnManager.Instance.CrossUserTurn;
                 GameManager.Instance.SetGameMode(isWin ? GameStatus.Win : GameStatus.Loss);
             }
             // end without winners
-            else if (_model.Cells.All(c => c.Value != Constants.CellValue.Empty))
+            else if (_model.Cells.All(c => c.Value != CellValue.Empty))
             {
                 foreach (var cell in _model.Cells)
                 {
-                    cell.SetStatus(Constants.CellWinStatus.Lose);
+                    cell.SetStatus(CellWinStatus.Lose);
                 }
                 
                 GameManager.Instance.SetGameMode(GameStatus.Draw);
