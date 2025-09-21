@@ -1,4 +1,5 @@
 using System;
+using Constants;
 using UnityEngine;
 
 
@@ -7,11 +8,11 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
-        public static event Action<bool> OnGameOverChanged;
-        
-        private bool _isGameInProcess = true;
-        public bool IsGameInProcess => _isGameInProcess;
+        public static event Action<GameStatus> OnGameStatusChanged;
 
+        private GameStatus _gameStatus = GameStatus.InGame;
+        public GameStatus GameStatus => _gameStatus;
+        
         [SerializeField] private Board.BoardController _boardController;
         
         private void Awake()
@@ -20,11 +21,10 @@ namespace Managers
             Instance = this;
         }
         
-        
-        public void GameOver()
+        public void SetGameMode(GameStatus status)
         {
-            _isGameInProcess = false;
-            OnGameOverChanged?.Invoke(false);
+            _gameStatus = status;
+            OnGameStatusChanged?.Invoke(status);
         }
 
         public void StartNewGame()
@@ -33,8 +33,7 @@ namespace Managers
             _boardController.ResetBoard();
             _boardController.Init();
             
-            _isGameInProcess = true;
-            OnGameOverChanged?.Invoke(true);
+            _gameStatus = GameStatus.InGame;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Constants;
 using Managers;
 using UnityEngine;
 
@@ -65,7 +66,8 @@ namespace Board
                     _model.Cells[index].SetStatus(Constants.CellWinStatus.Win);
                 }
 
-                GameManager.Instance.GameOver();
+                bool isWin = PlayerTurnManager.Instance.CrossUserTurn;
+                GameManager.Instance.SetGameMode(isWin ? GameStatus.Win : GameStatus.Loss);
             }
             // end without winners
             else if (_model.Cells.All(c => c.Value != Constants.CellValue.Empty))
@@ -75,7 +77,7 @@ namespace Board
                     cell.SetStatus(Constants.CellWinStatus.Lose);
                 }
                 
-                GameManager.Instance.GameOver();
+                GameManager.Instance.SetGameMode(GameStatus.Draw);
             }
             // continue game
             else
