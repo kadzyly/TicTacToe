@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 166771487}
   - component: {fileID: 166771486}
   - component: {fileID: 166771485}
+  - component: {fileID: 166771488}
   m_Layer: 5
   m_Name: Turns
   m_TagString: Untagged
@@ -396,6 +397,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166771483}
   m_CullTransparentMesh: 1
+--- !u!114 &166771488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166771483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09320c32cf7c58842b8234d65a1c6e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crossText: {fileID: 1829320813}
+  circleText: {fileID: 1069890358}
+  activeColor: {r: 0.18653606, g: 0.8037735, b: 0.24527209, a: 1}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &172622739
 GameObject:
   m_ObjectHideFlags: 0
