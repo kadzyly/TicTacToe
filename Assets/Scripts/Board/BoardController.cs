@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Constants;
@@ -53,7 +54,7 @@ namespace Board
             if (GameManager.Instance.GameStatus == GameStatus.InGame)
             {
                 Cell.CellModel nextBotMove = BotMovement.ChooseNextMove(_model.Cells);
-                BotMakeMove(nextBotMove);
+                StartCoroutine(BotMakeMoveWithDelay(nextBotMove));
             }
         }
 
@@ -62,12 +63,15 @@ namespace Board
             _model.MakeMove(model, CellValue.Cross);
             CheckWin(_model.Cells, model.Id, CellValue.Cross);
         }
-
-        private void BotMakeMove(Cell.CellModel model)
+        
+        private IEnumerator BotMakeMoveWithDelay(Cell.CellModel model)
         {
+            yield return new WaitForSeconds(Random.Range(0.3f, 1f));
+
             _model.MakeMove(model, CellValue.Circle);
             CheckWin(_model.Cells, model.Id, CellValue.Circle);
         }
+
 
         private void CheckWin(List<Cell.CellModel> cells, int id, CellValue value)
         {
@@ -81,7 +85,7 @@ namespace Board
                     _model.Cells[index].SetStatus(CellWinStatus.Win);
                 }
 
-                bool isWin = PlayerTurnManager.Instance.CrossUserTurn;
+                bool isWin = value == CellValue.Cross;
                 GameManager.Instance.SetGameMode(isWin ? GameStatus.Win : GameStatus.Loss);
             }
             // end without winners
