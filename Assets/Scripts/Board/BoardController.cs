@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Constants;
@@ -8,7 +9,7 @@ namespace Board
 {
     public class BoardController : MonoBehaviour
     {
-        [SerializeField] private int boardSize = 3;
+        private const int BoardSize = 3;
 
         private BoardModel _model;
         private BoardBuilder _builder;
@@ -26,7 +27,7 @@ namespace Board
 
         public void Init()
         {
-            _model = new BoardModel(boardSize);
+            _model = new BoardModel(BoardSize);
             _controllers = _builder.CreateBoard(_model.Cells);
 
             foreach (var controller in _controllers)
@@ -45,23 +46,36 @@ namespace Board
 
         private void HandleCellClicked(Cell.CellModel model)
         {
-            if (GameManager.Instance.GameStatus != GameStatus.InGame)
-            {
-                return;
-            }
+            if (!PlayerTurnManager.Instance.CrossUserTurn) return;
+            if (GameManager.Instance.GameStatus != GameStatus.InGame) return;
             
-            var newValue = PlayerTurnManager.Instance.CrossUserTurn
-                ? CellValue.Cross
-                : CellValue.Circle;
+            PlayerMakeMove(model);
 
-            _model.MakeMove(model, newValue);
-
-            CheckWin(_model.Cells, model.Id, newValue);
+            if (GameManager.Instance.GameStatus == GameStatus.InGame)
+            {
+                Cell.CellModel nextBotMove = BotMovement.ChooseNextMove(_model.Cells);
+                StartCoroutine(BotMakeMoveWithDelay(nextBotMove));
+            }
         }
 
-        private void CheckWin(List<Cell.CellModel> cells, int id, CellValue value)
+        private void PlayerMakeMove(Cell.CellModel model)
         {
-            List<int> winIndexed = WinChecker.GetWinningLine(cells, id, value);
+            _model.MakeMove(model, CellValue.Cross);
+            CheckWin(_model.Cells, CellValue.Cross);
+        }
+        
+        private IEnumerator BotMakeMoveWithDelay(Cell.CellModel model)
+        {
+            yield return new WaitForSeconds(Random.Range(0.3f, 1f));
+
+            _model.MakeMove(model, CellValue.Circle);
+            CheckWin(_model.Cells, CellValue.Circle);
+        }
+
+
+        private void CheckWin(List<Cell.CellModel> cells, CellValue value)
+        {
+            List<int> winIndexed = WinChecker.GetWinningLine(cells, value);
             
             // winner
             if (winIndexed != null)
@@ -71,7 +85,7 @@ namespace Board
                     _model.Cells[index].SetStatus(CellWinStatus.Win);
                 }
 
-                bool isWin = PlayerTurnManager.Instance.CrossUserTurn;
+                bool isWin = value == CellValue.Cross;
                 GameManager.Instance.SetGameMode(isWin ? GameStatus.Win : GameStatus.Loss);
             }
             // end without winners
