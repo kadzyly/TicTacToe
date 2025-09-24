@@ -45,18 +45,28 @@ namespace Board
 
         private void HandleCellClicked(Cell.CellModel model)
         {
-            if (GameManager.Instance.GameStatus != GameStatus.InGame)
-            {
-                return;
-            }
+            if (!PlayerTurnManager.Instance.CrossUserTurn) return;
+            if (GameManager.Instance.GameStatus != GameStatus.InGame) return;
             
-            var newValue = PlayerTurnManager.Instance.CrossUserTurn
-                ? CellValue.Cross
-                : CellValue.Circle;
+            PlayerMakeMove(model);
 
-            _model.MakeMove(model, newValue);
+            if (GameManager.Instance.GameStatus == GameStatus.InGame)
+            {
+                Cell.CellModel nextBotMove = BotMovement.ChooseNextMove(_model.Cells);
+                BotMakeMove(nextBotMove);
+            }
+        }
 
-            CheckWin(_model.Cells, model.Id, newValue);
+        private void PlayerMakeMove(Cell.CellModel model)
+        {
+            _model.MakeMove(model, CellValue.Cross);
+            CheckWin(_model.Cells, model.Id, CellValue.Cross);
+        }
+
+        private void BotMakeMove(Cell.CellModel model)
+        {
+            _model.MakeMove(model, CellValue.Circle);
+            CheckWin(_model.Cells, model.Id, CellValue.Circle);
         }
 
         private void CheckWin(List<Cell.CellModel> cells, int id, CellValue value)
