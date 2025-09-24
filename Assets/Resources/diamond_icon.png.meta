@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f0c05d592606ca0448c9064978ae4f17
+guid: 7f521a8cdb172034bb3b5c7cef7cd09e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8482712648628362555
-    second: Cross_0
+      213: -9119129702149671707
+    second: diamond_icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cross_0
+      name: diamond_icon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 441
-        height: 441
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3dd439e536a8b570800000000000000
-      internalID: 8482712648628362555
+      spriteID: 5e4b7a2e9d7527180800000000000000
+      internalID: -9119129702149671707
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cross_0: 8482712648628362555
+      diamond_icon_0: -9119129702149671707
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

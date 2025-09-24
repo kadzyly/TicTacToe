@@ -9,9 +9,6 @@ namespace UI
     public class DisplayWinner : MonoBehaviour
     {
         [SerializeField] private TMP_Text winnerText;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color defaultColor;
-
 
         private void Start()
         {
