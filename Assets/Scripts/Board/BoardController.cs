@@ -9,7 +9,7 @@ namespace Board
 {
     public class BoardController : MonoBehaviour
     {
-        [SerializeField] private int boardSize = 3;
+        private const int BoardSize = 3;
 
         private BoardModel _model;
         private BoardBuilder _builder;
@@ -27,7 +27,7 @@ namespace Board
 
         public void Init()
         {
-            _model = new BoardModel(boardSize);
+            _model = new BoardModel(BoardSize);
             _controllers = _builder.CreateBoard(_model.Cells);
 
             foreach (var controller in _controllers)
@@ -61,7 +61,7 @@ namespace Board
         private void PlayerMakeMove(Cell.CellModel model)
         {
             _model.MakeMove(model, CellValue.Cross);
-            CheckWin(_model.Cells, model.Id, CellValue.Cross);
+            CheckWin(_model.Cells, CellValue.Cross);
         }
         
         private IEnumerator BotMakeMoveWithDelay(Cell.CellModel model)
@@ -69,13 +69,13 @@ namespace Board
             yield return new WaitForSeconds(Random.Range(0.3f, 1f));
 
             _model.MakeMove(model, CellValue.Circle);
-            CheckWin(_model.Cells, model.Id, CellValue.Circle);
+            CheckWin(_model.Cells, CellValue.Circle);
         }
 
 
-        private void CheckWin(List<Cell.CellModel> cells, int id, CellValue value)
+        private void CheckWin(List<Cell.CellModel> cells, CellValue value)
         {
-            List<int> winIndexed = WinChecker.GetWinningLine(cells, id, value);
+            List<int> winIndexed = WinChecker.GetWinningLine(cells, value);
             
             // winner
             if (winIndexed != null)

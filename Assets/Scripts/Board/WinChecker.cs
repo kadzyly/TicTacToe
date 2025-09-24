@@ -1,75 +1,34 @@
 using System.Collections.Generic;
 using Cell;
-using UnityEngine;
 
 namespace Board
 {
     public static class WinChecker
     {
-        public static List<int> GetWinningLine(List<CellModel> cells, int cellIndex, Constants.CellValue playerValue)
+        private static readonly int[][] WinningLines =
         {
-            int size = (int)Mathf.Sqrt(cells.Count);
-            int row = cellIndex / size;
-            int col = cellIndex % size;
+            new[] {0, 1, 2}, // 1st line
+            new[] {3, 4, 5}, // 2nd line
+            new[] {6, 7, 8}, // 3rd line
 
-            List<int> line;
+            new[] {0, 3, 6}, // 1st column
+            new[] {1, 4, 7}, // 2nd column
+            new[] {2, 5, 8}, // 3rd column
 
-            // row
-            line = new List<int>();
-            for (int c = 0; c < size; c++)
+            new[] {0, 4, 8}, // diagonal \
+            new[] {2, 4, 6}  // diagonal /
+        };
+
+        public static List<int> GetWinningLine(List<CellModel> cells, Constants.CellValue playerValue)
+        {
+            foreach (var line in WinningLines)
             {
-                if (cells[row * size + c].Value != playerValue)
+                if (cells[line[0]].Value == playerValue &&
+                    cells[line[1]].Value == playerValue &&
+                    cells[line[2]].Value == playerValue)
                 {
-                    line = null;
-                    break;
+                    return new List<int> { line[0], line[1], line[2] };
                 }
-                line.Add(cells[row * size + c].Id);
-            }
-            if (line != null) return line;
-
-            // column
-            line = new List<int>();
-            for (int r = 0; r < size; r++)
-            {
-                if (cells[r * size + col].Value != playerValue)
-                {
-                    line = null;
-                    break;
-                }
-                line.Add(cells[r * size + col].Id);
-            }
-            if (line != null) return line;
-
-            // diagonal \
-            if (row == col)
-            {
-                line = new List<int>();
-                for (int i = 0; i < size; i++)
-                {
-                    if (cells[i * size + i].Value != playerValue)
-                    {
-                        line = null;
-                        break;
-                    }
-                    line.Add(cells[i * size + i].Id);
-                }
-                if (line != null) return line;
-            }
-
-            // diagonal /
-            if (row + col == size - 1)
-            {
-                line = new List<int>();
-                for (int i = 0; i < size; i++)
-                {
-                    if (cells[i * size + (size - 1 - i)].Value != playerValue)
-                    {
-                        line = null;
-                        break;
-                    }
-                    line.Add(cells[i * size + (size - 1 - i)].Id);
-                }
-                if (line != null) return line;
             }
 
             return null;
