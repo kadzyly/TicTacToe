@@ -8,38 +8,48 @@ namespace Cell
     {
         [SerializeField] private Button button;
         [SerializeField] private Image image;
+        
+        [SerializeField] private Color emptyColor;
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color winColor;
         [SerializeField] private Color failedColor;
+        private Outline _outline;
         private Sprite xImage, oImage, blankImage;
         
         public event Action OnButtonClicked;
 
         private void Awake()
         {
-            xImage = Resources.Load<Sprite>("Cross");
-            oImage = Resources.Load<Sprite>("Circle");
+            xImage = Resources.Load<Sprite>("diamond_icon");
+            oImage = Resources.Load<Sprite>("circle_icon");
             blankImage = Resources.Load<Sprite>("Empty");
         }
 
         private void Start()
         {
             button.onClick.AddListener(OnButtonClick);
+            _outline = GetComponent<Outline>();
         }
 
         public void DisplayCross()
         {
             image.sprite = xImage;
+            _outline.enabled = false;
+            DisplayDefaultColor();
         }
         
         public void DisplayCircle()
         {
             image.sprite = oImage;
+            _outline.enabled = false;
+            DisplayDefaultColor();
         }
         
         public void DisplayEmpty()
         {
             image.sprite = blankImage;
+            _outline.enabled = true;
+            ChangeImageColor(emptyColor);
         }
 
         public void DisplayWinColor()

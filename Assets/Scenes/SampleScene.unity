@@ -294,7 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b100955ecc965b44a93e395660c4081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: 3
 --- !u!1 &166771483
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +790,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
@@ -825,7 +824,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.12090121, g: 0.11970805, b: 0.16226411, a: 0}
+  m_BackGroundColor: {r: 0.99607843, g: 0.7411765, b: 0.53333336, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

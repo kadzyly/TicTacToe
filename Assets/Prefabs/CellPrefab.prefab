@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5668462236173401787}
   - component: {fileID: 7230740728803310402}
   - component: {fileID: 779489505482298937}
+  - component: {fileID: 5099403047044022191}
   m_Layer: 5
   m_Name: CellPrefab
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3331791, g: 0.7250181, b: 0.9245283, a: 1}
+  m_Color: {r: 0.043137256, g: 0.023529412, b: 0.14901961, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -136,9 +137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 5668462236173401787}
   image: {fileID: 8509866092972355528}
-  defaultColor: {r: 0.33333334, g: 0.7254902, b: 0.9254902, a: 1}
-  winColor: {r: 0.2778568, g: 0.8415094, b: 0.41950637, a: 1}
-  failedColor: {r: 0.2972232, g: 0.36488718, b: 0.4339623, a: 1}
+  emptyColor: {r: 0.043137256, g: 0.023529412, b: 0.14901961, a: 1}
+  defaultColor: {r: 0.31401205, g: 0.47035193, b: 0.90943396, a: 1}
+  winColor: {r: 0.99607843, g: 0.8392157, b: 0.99607843, a: 1}
+  failedColor: {r: 0.19000004, g: 0.285, b: 0.551, a: 1}
 --- !u!114 &779489505482298937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +153,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6fb60864239d14d8dba9477c77ac5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5099403047044022191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662414784282291057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.31401205, g: 0.47035193, b: 0.90943396, a: 1}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
