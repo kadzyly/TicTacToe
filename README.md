@@ -35,7 +35,7 @@ You can try the game directly in your browser:
    ```bash
    git clone https://github.com/kadzyly/TicTacToe.git  
 
-2. Open the project in `Unity 6000.0.54f1`
+2. Open the project in `Unity 6000.2.6f2`
 3. Run the scene `GameScene.unity` from the Scenes folder
 4. Press ▶️ Play
 
