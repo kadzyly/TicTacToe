@@ -5,7 +5,7 @@ Built from scratch to practice **MVC pattern** in Unity.
 
 ---
 
-## 🎮 Play Online
+## Play Online
 
 You can try the game directly in your browser:  
 👉 [Play on itch.io](https://kadzy.itch.io/tictactoe)
@@ -14,7 +14,7 @@ You can try the game directly in your browser:
 
 ---
 
-## 🖼️ Screenshot
+## Screenshot
 
 ![ScreenShot_20250925055755](https://github.com/user-attachments/assets/0dff40be-86f9-4487-b6a0-471e10d4d1a4)
 
