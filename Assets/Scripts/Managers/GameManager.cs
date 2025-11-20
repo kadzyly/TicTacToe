@@ -30,6 +30,7 @@ namespace Managers
         public void StartNewGame()
         {
             PlayerTurnManager.Instance.Reset();
+            _boardController.StopBotThinking();
             _boardController.ResetBoard();
             _boardController.Init();
             SetGameMode(GameStatus.InGame);

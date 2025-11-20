@@ -14,6 +14,7 @@ namespace Board
         private BoardModel _model;
         private BoardBuilder _builder;
         private List<Cell.CellController> _controllers;
+        private Coroutine _botMoveCoroutine;
 
         private void Awake()
         {
@@ -54,7 +55,13 @@ namespace Board
             if (GameManager.Instance.GameStatus == GameStatus.InGame)
             {
                 Cell.CellModel nextBotMove = BotMovement.ChooseNextMove(_model.Cells);
-                StartCoroutine(BotMakeMoveWithDelay(nextBotMove));
+
+                if (_botMoveCoroutine != null)
+                {
+                    StopCoroutine(_botMoveCoroutine);
+                }
+            
+                _botMoveCoroutine = StartCoroutine(BotMakeMoveWithDelay(nextBotMove));
             }
         }
 
@@ -68,8 +75,15 @@ namespace Board
         {
             yield return new WaitForSeconds(Random.Range(0.3f, 1f));
 
+            if (GameManager.Instance.GameStatus != GameStatus.InGame || _botMoveCoroutine == null)
+            {
+                yield break;
+            }
+
             _model.MakeMove(model, CellValue.Circle);
             CheckWin(_model.Cells, CellValue.Circle);
+            
+            _botMoveCoroutine = null;
         }
 
 
@@ -105,8 +119,18 @@ namespace Board
             }
         }
 
+        public void StopBotThinking()
+        {
+            if (_botMoveCoroutine != null)
+            {
+                StopCoroutine(_botMoveCoroutine);
+                _botMoveCoroutine = null;
+            }
+        }
+
         public void ResetBoard()
         {
+            StopBotThinking();
             _model.Reset();
         }
     }
