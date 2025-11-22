@@ -1,4 +1,4 @@
-# TicTacToe (Unity Learning Project)
+# TicTacToe
 
 Simple 3x3 TicTacToe against a bot.  
 Built from scratch to practice **MVC pattern** in Unity.
