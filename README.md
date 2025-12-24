@@ -80,7 +80,7 @@ Assets/
 
 ### Prerequisites
 
-- **Unity Editor** `6000.2.10f1` or compatible
+- **Unity Editor** `6000.3.2f1` or compatible
 
 ### Setup Instructions
 
